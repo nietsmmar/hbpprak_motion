@@ -1,16 +1,18 @@
 <?xml version="1.0" ?>
 <ns1:ExD xmlns:ns1="http://schemas.humanbrainproject.eu/SP10/2014/ExDConfig">
-  <ns1:name>HBP Praktikum Motion</ns1:name>
-  <ns1:thumbnail>ExDTemplateIcub.png</ns1:thumbnail>
-  <ns1:description>Object hitting</ns1:description>
-  <ns1:timeout>840.0</ns1:timeout>
-  <ns1:maturity>production</ns1:maturity>
-  <ns1:environmentModel src="empty_world.sdf">
-    <ns1:robotPose theta="0.0" ux="0.0" uy="0.0" uz="0.0" x="0.0" y="0.0" z="1.0"/>
-  </ns1:environmentModel>
-  <ns1:bibiConf src="bibi_configuration.bibi"/>
-  <ns1:cameraPose>
-    <ns1:cameraPosition x="4.5" y="0.0" z="1.8"/>
-    <ns1:cameraLookAt x="0.0" y="0.0" z="0.6"/>
-  </ns1:cameraPose>
+	<ns1:name>Motion Comittee Testing Experiment</ns1:name>
+	<ns1:thumbnail>ExDTemplateManipulation.jpg</ns1:thumbnail>
+	<ns1:description>Hit a ball as far as possible with a tennis racket</ns1:description>
+	<ns1:tags>hollie robotics</ns1:tags>
+	<ns1:timeout>840.0</ns1:timeout>
+	<ns1:configuration src="ExDTemplateManipulation.3ds" type="3d-settings"/>
+	<ns1:maturity>production</ns1:maturity>
+	<ns1:environmentModel src="empty_world.sdf">
+		<ns1:robotPose theta="0.0" ux="0.0" uy="0.0" uz="1.0" x="0.0" y="0.0" z="0.04"/>
+	</ns1:environmentModel>
+	<ns1:bibiConf src="bibi_configuration.bibi"/>
+	<ns1:cameraPose>
+		<ns1:cameraPosition x="4.5" y="0.0" z="1.8"/>
+		<ns1:cameraLookAt x="0.0" y="0.0" z="0.6"/>
+	</ns1:cameraPose>
 </ns1:ExD>

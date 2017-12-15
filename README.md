@@ -10,4 +10,5 @@ and
 ~/Documents/NRP/Models/arm_robot/meshes/
 
 2. TODO - let Hollie grasp the racket
+
 To make grasping easier the gravity of the tennis racket is set to 0.

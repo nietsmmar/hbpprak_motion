@@ -153,23 +153,7 @@
     </link>
     <joint name='tennis_joint' type='fixed'>
       <child>link_0</child>
-      <parent></parent>
-      <axis>
-        <xyz>-0.0523359 0.99863 0</xyz>
-        <limit>
-          <lower>0</lower>
-          <upper>0</upper>
-          <effort>1000</effort>
-          <velocity>1</velocity>
-        </limit>
-        <dynamics>
-          <damping>1</damping>
-          <friction>0</friction>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
-        <use_parent_model_frame>1</use_parent_model_frame>
-      </axis>
+      <parent>COL_COL_COL_VIS_VIS_VIS_VIS_VIS_VIS_VIS_VIS_VIS_hollie_real.006</parent>
     </joint>
 
 

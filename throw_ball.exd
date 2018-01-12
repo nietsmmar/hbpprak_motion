@@ -1,4 +1,5 @@
 import hbp_nrp_excontrol.nrp_states as states
+import time
 from smach import StateMachine
 from smach.state import State
 
@@ -63,9 +64,9 @@ class ThrowBallState(State):
         self._ball_msg = SpawnEntityRequest()
         self._ball_msg.entity_name = self._ball_name
         self._ball_msg.entity_xml = sdf_xml.format(ball_name=ball_name)
-        self._ball_msg.initial_pose.position.x = -0.7
-        self._ball_msg.initial_pose.position.y = 6.
-        self._ball_msg.initial_pose.position.z = 1.5
+        self._ball_msg.initial_pose.position.x = 0.
+        self._ball_msg.initial_pose.position.y = 5.
+        self._ball_msg.initial_pose.position.z = 2.1
         self._ball_msg.reference_frame = "world"
 
 
@@ -105,6 +106,8 @@ class FlyingBallState(State):
 
 with sm:
     # Waits until a simulation time of 20s is reached
+    time.sleep(20)
+    print("wait 20 seconds for ball")
     StateMachine.add(
       "throw_ball",
       ThrowBallState(ball_name, ball_sdf_xml),

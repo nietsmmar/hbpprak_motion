@@ -106,8 +106,8 @@ class FlyingBallState(State):
 
 with sm:
     # Waits until a simulation time of 20s is reached
-    time.sleep(20)
-    print("wait 20 seconds for ball")
+    #time.sleep(20)
+    #print("wait 20 seconds for ball")
     StateMachine.add(
       "throw_ball",
       ThrowBallState(ball_name, ball_sdf_xml),

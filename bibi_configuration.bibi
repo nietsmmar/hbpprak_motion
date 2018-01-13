@@ -19,11 +19,16 @@
 	<ns1:transferFunction xsi:type="ns1:PythonTransferFunction">
     #
     @nrp.MapSpikeSink(&quot;output_neuron&quot;, nrp.brain.neurons[1], nrp.leaky_integrator_alpha)
-    @nrp.Neuron2Robot(Topic('/robot/hollie_real_left_arm_1_joint/cmd_pos', std_msgs.msg.Float64))
+    @nrp.Neuron2Robot(Topic('/robot/hollie_real_left_arm_2_joint/cmd_pos', std_msgs.msg.Float64))
     # Example TF: get output neuron voltage and actuate the arm with the current simulation time. You could do something with the voltage here and command the robot accordingly.
-    def turn_around(t, output_neuron):
+    def swing(t, output_neuron):
+        pos = t * (-1)
+        if t > 1:
+            pos = t * 4
+        if t > 2:
+            pos = 0
         voltage=output_neuron.voltage
-        return std_msgs.msg.Float64(t)
+        return std_msgs.msg.Float64(pos)
     #
   </ns1:transferFunction>
 	<ns1:transferFunction xsi:type="ns1:PythonTransferFunction">
@@ -32,18 +37,6 @@
     @nrp.Robot2Neuron()
     def set_neuron_rate(t, input_neuron):
         input_neuron.rate = 10
-    #
-  </ns1:transferFunction>
-#
-  </ns1:transferFunction>
-	<ns1:transferFunction xsi:type="ns1:PythonTransferFunction">
-#
-    @nrp.MapSpikeSink(&quot;output_neuron&quot;, nrp.brain.neurons[1], nrp.leaky_integrator_alpha)
-    @nrp.Neuron2Robot(Topic('/robot/hollie_real_left_arm_1_joint/cmd_pos', std_msgs.msg.Float64))
-    # Example TF: get output neuron voltage and actuate the arm with the current simulation time. You could do something with the voltage here and command the robot accordingly.
-    def turn_around(t, output_neuron):
-        voltage=output_neuron.voltage
-        return std_msgs.msg.Float64(t)
     #
   </ns1:transferFunction>
 </ns1:bibi>

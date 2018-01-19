@@ -7,6 +7,7 @@ from gazebo_msgs.srv import ApplyBodyWrench, GetModelState, DeleteModel, SpawnEn
 from geometry_msgs.msg import Wrench, Vector3, Point
 import rospy
 from rospy import ServiceProxy, wait_for_service
+from std_msgs.msg import Float32
 
 
 FINISHED = 'FINISHED'
@@ -14,6 +15,8 @@ ERROR = 'ERROR'
 PREEMPTED = 'PREEMPTED'
 
 sm = StateMachine(outcomes=[FINISHED, ERROR, PREEMPTED])
+distance_topic = rospy.Publisher('ball_distance', Float32, queue_size=10)
+# node = rospy.init_node('ball_state_machine', anonymous=True)
 
 import hbp_nrp_excontrol.nrp_states as states
 
@@ -51,6 +54,15 @@ ball_sdf_xml = """
   </model>
 </sdf>
 """
+
+class WaitState(State):
+    def __init__(self, duration, outcomes=['success', 'aborted']):
+        super(WaitState, self).__init__(outcomes=outcomes)
+        self._duration = rospy.Duration(duration)
+
+    def execute(self, userdata):
+      rospy.sleep(self._duration)
+      return 'success'
 
 class ThrowBallState(State):
     def __init__(self, ball_name, sdf_xml, outcomes=['success', 'aborted']):
@@ -90,10 +102,20 @@ class FlyingBallState(State):
 
     def execute(self, userdata):
         start_time = rospy.Time.now()
-        while not self.ball_lower_than(0.1):
+        while not self.ball_lower_than(0.1) and (rospy.Time.now() - start_time) < rospy.Duration(5) :
             self._rate.sleep()
+        ball_pos = self.get_ball_distance()
+        distance_topic.publish(Float32(ball_pos))
         self._delete_proxy(self._ball_name)
         return 'success'
+
+    def get_ball_distance(self):
+      try:
+          current_ball_state = self._state_proxy(ball_name, "world")
+      except rospy.ServiceException as exc:
+          clientLogger.error(str(exc))
+          return -1000.0
+      return current_ball_state.pose.position.y
 
     def ball_lower_than(self, z_threshold):
         try:
@@ -105,9 +127,12 @@ class FlyingBallState(State):
 
 
 with sm:
-    # Waits until a simulation time of 20s is reached
-    time.sleep(20)
-    print("wait 20 seconds for ball")
+    StateMachine.add(
+      "wait",
+      WaitState(5.0),
+      transitions = {'success': 'throw_ball',
+                     'aborted': ERROR})
+
     StateMachine.add(
       "throw_ball",
       ThrowBallState(ball_name, ball_sdf_xml),

@@ -7,7 +7,7 @@
   <ns1:timeout>840.0</ns1:timeout>
   <ns1:configuration src="ExDTemplateManipulation.3ds" type="3d-settings"/>
   <ns1:maturity>development</ns1:maturity>
-  <ns1:environmentModel src="empty_world.sdf">
+  <ns1:environmentModel src="empty_world/empty_world.sdf">
     <ns1:robotPose theta="0.0" ux="0.0" uy="0.0" uz="1.0" x="0.0" y="0.0" z="0.04"/>
   </ns1:environmentModel>
   <ns1:bibiConf src="bibi_configuration.bibi"/>

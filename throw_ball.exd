@@ -102,7 +102,7 @@ class FlyingBallState(State):
 
     def execute(self, userdata):
         start_time = rospy.Time.now()
-        while not self.ball_lower_than(0.1) and (rospy.Time.now() - start_time) < rospy.Duration(5) :
+        while not self.ball_lower_than(0.1) and (rospy.Time.now() - start_time) < rospy.Duration(3) :
             self._rate.sleep()
         ball_pos = self.get_ball_distance()
         distance_topic.publish(Float32(ball_pos))
@@ -129,7 +129,7 @@ class FlyingBallState(State):
 with sm:
     StateMachine.add(
       "wait",
-      WaitState(5.0),
+      WaitState(1.0),
       transitions = {'success': 'throw_ball',
                      'aborted': ERROR})
     StateMachine.add(

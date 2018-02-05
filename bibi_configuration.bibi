@@ -1,9 +1,9 @@
 <?xml version="1.0" ?>
 <ns1:bibi xmlns:ns1="http://schemas.humanbrainproject.eu/SP10/2014/BIBI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <ns1:brainModel>
-        <ns1:file>brain_model/robo_brain.py</ns1:file>
+        <ns1:file>robo_brain.py</ns1:file>
     </ns1:brainModel>
-    <ns1:bodyModel>arm_robot/arm_robot_tennis.sdf</ns1:bodyModel>
+    <ns1:bodyModel>arm_robot_tennis.sdf</ns1:bodyModel>
     <ns1:transferFunction src="robot2brain.py" xsi:type="ns1:PythonTransferFunction"/>
     <ns1:transferFunction src="brain2robot.py" xsi:type="ns1:PythonTransferFunction"/>
 </ns1:bibi>
